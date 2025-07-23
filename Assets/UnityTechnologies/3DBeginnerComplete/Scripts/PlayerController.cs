@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z); // y값은 중력유지        
 
         // 회전
-        if (movement.sqrMagnitude > 0.0001f)
+        if (movement.sqrMagnitude > 0.01f)
         {
             targetRotation = Quaternion.LookRotation(movement);
             qt = Quaternion.Slerp(rb.rotation, targetRotation,
