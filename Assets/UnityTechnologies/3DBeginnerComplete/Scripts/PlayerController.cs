@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
         // 카메라 기준으로 방향을 설정함
         Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
+        // y(높이)축을 계산에서 빼야 함
+        cameraForward.y = 0;
+        cameraRight.y = 0;
         cameraForward.Normalize();
         cameraRight.Normalize();
 
