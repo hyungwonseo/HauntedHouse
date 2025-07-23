@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dance"))
         {
-            yield return null;
+            yield return null; // 다음 프레임에 다시 확인해보자
         }
 
         float duration = animator.GetCurrentAnimatorStateInfo(0).length;
