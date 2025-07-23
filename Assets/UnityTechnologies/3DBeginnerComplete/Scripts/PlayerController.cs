@@ -29,25 +29,24 @@ public class PlayerController : MonoBehaviour
     {
         // 이동
         Vector3 movement = movementInput * moveSpeed;
-        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z); // y값은 중력유지
+        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
 
-        // 회전
+        // 회전 처리
         if (movement.sqrMagnitude > 0.0001f)
         {
             targetRotation = Quaternion.LookRotation(movement);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation,
-                                Time.fixedDeltaTime * rotationSpeed);
-        }
+            Quaternion qt = Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * rotationSpeed);
 
-        float angleDiff = Quaternion.Angle(rb.rotation, targetRotation);
-        if (angleDiff > 0.5f) // 회전각의 차이가 0.5도 까지는 계속 회전하고
-        {
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * rotationSpeed);
-        }
-        else // 0.5도 이내로 근접했으면 목표회전값으로 완료
-        {
-            rb.rotation = targetRotation;
-            rb.angularVelocity = Vector3.zero;
+            // 회전이 거의 완료(0.5도 이내로)되었으면 정확히 맞춰줌
+            if (Quaternion.Angle(rb.rotation, targetRotation) <= 0.5f)
+            {
+                rb.rotation = targetRotation;
+                rb.angularVelocity = Vector3.zero;
+            }
+            else
+            {
+                rb.rotation = Quaternion.Normalize(qt); // 안전하게 정규화
+            }
         }
     }
 }
