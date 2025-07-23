@@ -112,5 +112,4 @@ public class PlayerController : MonoBehaviour
         isDancing = false;
         animator.SetBool("isDancing", false);
     }
-
 }
