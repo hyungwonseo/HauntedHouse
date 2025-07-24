@@ -81,7 +81,7 @@ public class PlayerNavController : MonoBehaviour
             else // 0.5도 이내로 근접했으면 목표회전값으로 완료
             {
                 rb.rotation = targetRotation;
-                rb.angularVelocity = Vector3.zero;
+                // rb.angularVelocity = Vector3.zero;  // isKinematic에서는 사용X
             }
         }
     }
